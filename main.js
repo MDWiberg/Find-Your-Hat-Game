@@ -30,11 +30,11 @@ class Field {
 
     if(uDC < 0 || uDC > arr.length-1 || lRC < 0 || lRC > arr[uDC].length-1){
       if(uDC < 0){
-        // Not using variable here for count so it affects class scope 
+        // Not initializing variable here for count so it affects class scope 
         this._uDCount += 1;
       }
       else if(uDC > arr.length-1){
-        // Not using variable here for count so it affects class scope
+        // Not initializing variable here for count so it affects class scope
         this._uDCount -= 1;
         console.log('hello');
       }
