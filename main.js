@@ -56,16 +56,17 @@ class Field {
 
   //  Gives a prompt askings for directions and prints the path character to show where you move
   ask(){
-    let answer = prompt("Which way? Acceptable directions are up, down, left and right or their first letters.  Capatilization does not matter.");
+    let answer = prompt("Which way? Acceptable directions are up, down, left and right or their first letters (Capatilization does not matter): ");
     answer = answer.toLowerCase();
 
+    // Handles all cases for directions
     if(answer === 'l' || answer === 'left'){
       this._lRCount -= 1;
       let ans = this.testLocation();
       if(ans === false){
         return ans;
       }
-      this._fieldTwoDArr[this._uDCount][this._lRCount] = '*';
+      this._fieldTwoDArr[this._uDCount][this._lRCount] = pathCharacter;
       this.print();
       return ans;
     }
@@ -75,7 +76,7 @@ class Field {
       if(ans === false){
         return ans;
       }
-      this._fieldTwoDArr[this._uDCount][this._lRCount] = '*';
+      this._fieldTwoDArr[this._uDCount][this._lRCount] = pathCharacter;
       this.print();
       return ans;
     }
@@ -85,7 +86,7 @@ class Field {
       if(ans === false){
         return ans;
       }
-      this._fieldTwoDArr[this._uDCount][this._lRCount] = '*';
+      this._fieldTwoDArr[this._uDCount][this._lRCount] = pathCharacter;
       this.print();
       return ans;
     }
@@ -95,7 +96,7 @@ class Field {
       if(ans === false){
         return ans;
       }
-      this._fieldTwoDArr[this._uDCount][this._lRCount] = '*';
+      this._fieldTwoDArr[this._uDCount][this._lRCount] = pathCharacter;
       this.print();
       return ans;
     }
@@ -114,14 +115,22 @@ class Field {
     }
   }
 
-  // Allows the method to be called on the regular object, not an instance to generate a random field
-  static generateField(height, width){
+  // Method to generate a random field
+  // Static: Allows the method to be called without an instance of the class
+  static generateField(){
+
+    // Use a prompt to allow the size of the grid to be determined by input
+    let gridHeight = prompt("Please enter a height: ");
+    let gridWidth = prompt("Please enter a width: ");
+
     let newArr = [];
     let charArr = [hole, fieldCharacter];
     
-    for(let i=0;i<height;i++){
+    // Loops through until full height of the grid is filled
+    for(let i=0;i<gridHeight;i++){
       let tempArr = [];
-      for(let j=0;j<width;j++){
+      // Loops thorugh filling in the width of the grid
+      for(let j=0;j<gridWidth;j++){
         let randIndex = 0;
         if(i === 0 && j === 0){
           tempArr.push(pathCharacter);
@@ -134,20 +143,20 @@ class Field {
       }
       newArr.push(tempArr);
     }
-    let randHeight = Math.floor(Math.random()*height+1);
-    if(randHeight>=height){
+    let randHeight = Math.floor(Math.random()*gridHeight+1);
+    if(randHeight>=gridHeight){
       randHeight -= 1;
     }
-    let randWidth = Math.floor(Math.random()*width+1);
-    if(randWidth>=width){
+    let randWidth = Math.floor(Math.random()*gridWidth+1);
+    if(randWidth>=gridWidth){
       randWidth -= 1;
     }
-    newArr[randHeight][randWidth] = '^';
+    newArr[randHeight][randWidth] = hat;
     return newArr;
   }
 
 }
 
 // Create instance to run and test code
-const field1 = new Field(Field.generateField(5,5));
+const field1 = new Field(Field.generateField());
 field1.runGame();
